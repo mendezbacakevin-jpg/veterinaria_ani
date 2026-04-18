@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comida para Perro - Clínica Vida Animal</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- FontAwesome para iconos -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .hero {
+      background: url('https://via.placeholder.com/1200x400?text=Cirugías+Veterinarias') center/cover no-repeat;
+      color: white;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      background-color: rgba(0,0,0,0.4);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+    }
+    .section-title {
+      color: #a68f3d;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Submenú dentro del dropdown */
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 0;
+      display: none;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Opcional: mejor visibilidad */
+    .dropdown-menu > li > a {
+      white-space: nowrap;
+    }
+
+    /*ESTILO DEL FOOTER*/
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #c9b177; /* tono crema más oscuro */
+      color: rgb(23, 19, 19);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .social-icon:hover {
+      background-color: #a68f3d; /* un poco más oscuro para hover */
+      transform: scale(1.15);
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Dropdown menú base */
+    .dropdown-menu {
+      background-color: #f5f5dc; /* crema */
+      border-radius: 8px;
+      border: 1px solid #d3c9a3; /* borde suave */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem 0;
+      min-width: 200px;
+    }
+
+    /* Items */
+    .dropdown-menu .dropdown-item {
+      color: #5a4a2f; /* marrón oscuro */
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Hover en items */
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item:focus {
+      background-color: #d3c9a3; /* crema oscuro */
+      color: #2c220d;
+    }
+
+    /* Submenu */
+    .dropdown-submenu .dropdown-menu {
+      background-color: #f5f5dc;
+      border-radius: 8px;
+      border: 1px solid #d3c9a3;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Icono toggle (flecha) */
+    .dropdown-toggle::after {
+      border-top: 0.3em solid #5a4a2f;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
+      margin-left: 0.255em;
+    }
+
+    /* Ajuste para el submenú cuando se muestra */
+    .dropdown-submenu:hover > .dropdown-menu {
+      display: block;
+    }
+
+
+
+    /*STYLE PARA COMIDA DE PERRO */
+.text-shadow {
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar" style="background-color: #f5f5dc;">
+  <div class="container-fluid">
+    <!-- Logo e izquierda -->
+    <div class="d-flex align-items-center">
+		<a th:href="@{/ruta-colocar-aun}">
+		  <img th:src="@{/images/princi2..png}" alt="Logo" style="height: 50px;" class="me-3">
+		</a>
+		<a class="nav-link px-3" th:href="@{/principal}">Inicio</a>
+		<a class="nav-link px-3" th:href="@{/nosotros}">Nosotros</a>
+
+      <!-- Dropdown Productos -->
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown">
+          Productos
+        </a>
+        <ul class="dropdown-menu">
+          <!-- Submenú Alimentos -->
+          <li class="dropdown-submenu position-relative">
+            <a class="dropdown-item dropdown-toggle" href="#">Alimentos</a>
+            <ul class="dropdown-menu">
+				<a class="dropdown-item" th:href="@{/alimentoperro}">Perros</a>
+				        <li><a class="dropdown-item" th:href="@{/alimentogato}">Gatos</a></li>
+            </ul>
+          </li>
+          <!-- Submenú Juguetes -->
+          <li class="dropdown-submenu position-relative">
+            <a class="dropdown-item dropdown-toggle" href="#">Juguetes</a>
+            <ul class="dropdown-menu">
+				<li><a class="dropdown-item" th:href="@{/jugueteperro}">Perros</a></li>
+					  <li><a class="dropdown-item" th:href="@{/juguetegato}">Gatos</a></li>
+            </ul>
+          </li>
+          <!-- Opción simple -->
+          <li class="dropdown-submenu position-relative">
+            <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
+            <ul class="dropdown-menu">
+				<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+				      <li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+	  <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
+	     <!-- Botón que redirige a /listarRegistro usando Thymeleaf -->
+	     <a class="nav-link px-3" th:href="@{/listarRegistro}">Mis Citas</a>
+    </div>
+
+    <!-- Imagen al centro -->
+    <div class="d-none d-lg-block"></div>
+
+    <!-- Derecha -->
+    <div class="d-flex align-items-center">
+		<a class="nav-link px-3" th:href="@{/cargar}">Registro Cita</a>
+		<a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
+		<a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
+		<a class="nav-link px-3 position-relative" th:href="@{/carrocompras}">
+			
+			<!--CODIGO DEL CARRO DE COMPRAS LOGO-->
+		  <i class="fas fa-shopping-cart"></i>
+		  <span id="notificacion-carrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none; font-size: 0.6rem;">
+		    0
+		  </span>
+		</a>
+      <a class="nav-link px-3" href="#"><i class="fas fa-user"></i></a>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- 🐶 Banner tipo Hero debajo del navbar -->
+<section class="banner-perro position-relative text-white text-center">
+<img th:src="@{/images/imgbannerperrojuguete.png}"
+       alt="Banner perro comiendo" class="img-fluid w-100" style="max-height: 450px; object-fit: cover;">
+
+  <!-- Texto opcional sobre la imagen -->
+  <div class="position-absolute top-50 start-50 translate-middle">
+    <h1 class="display-4 fw-bold text-shadow">Juguetes para Perros</h1>
+    <p class="lead text-shadow">Los mejores juguetes para tu mejor amigo</p>
+  </div>
+</section>
+
+<section class="container my-5">
+  <h2 class="text-center mb-4 section-title">Productos para Perros</h2>
+
+
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <input type="text" id="busquedaNombre" class="form-control" placeholder="Buscar producto por nombre">
+  </div>
+  <div class="col-md-6">
+    <select id="ordenPrecio" class="form-select">
+      <option value="">Ordenar por precio</option>
+      <option value="asc">Menor a mayor</option>
+      <option value="desc">Mayor a menor</option>
+    </select>
+  </div>
+</div>
+
+
+
+
+  <div class="row justify-content-center">
+	
+	
+	<!-- Producto 1 - Peluche para perro -->
+	<div class="col-md-5 col-lg-4 mb-4">
+	  <div class="card h-100 shadow-sm">
+	    <img th:src="@{/images/jugueteperro1.jpg}" class="card-img-top" alt="Peluche para perro">
+	    <div class="card-body d-flex flex-column">
+			<br>
+	      <h5 class="card-title">Peluche Llama Patas Largas</h5>
+	      <p class="card-text text-muted">Peluche  Llama, ideal para perros pequeños.</p>
+	      <p class="h5 fw-bold text-success">S/19.90</p>
+
+	      <a href="#" class="btn btn-primary" 
+	         onclick="agregarAlCarrito(1, 'PeluchePatas Largas', 19.90, '/images/jugueteperro1.jpg'); return false;">
+	        <i class="fas fa-cart-plus"></i> Agregar al carrito
+	      </a>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Producto 2 - Peluche para perro -->
+	<div class="col-md-5 col-lg-4 mb-4">
+	  <div class="card h-100 shadow-sm">
+	    <img th:src="@{/images/jugueteperro2.jpg}" class="card-img-top" alt="Peluche para perro">
+	    <div class="card-body d-flex flex-column">
+	      <h5 class="card-title">Peluche Llama Patas Cuerda</h5>
+	      <p class="card-text text-muted">Divertido peluche , perfecto para morder y jugar.</p>
+	      <p class="h5 fw-bold text-success">S/14.50</p>
+
+	      <a href="#" class="btn btn-primary" 
+	         onclick="agregarAlCarrito(2, 'Peluche Llama Patas Cuerda', 14.50, '/images/jugueteperro2.jpg'); return false;">
+	        <i class="fas fa-cart-plus"></i> Agregar al carrito
+	      </a>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Producto 3 - Peluche para perro -->
+	<div class="col-md-5 col-lg-4 mb-4">
+	  <div class="card h-100 shadow-sm">
+	    <img th:src="@{/images/jugueteperro3.jpg}" class="card-img-top" alt="Peluche para perro">
+	    <div class="card-body d-flex flex-column">
+			<br>
+	      <h5 class="card-title">Peluche Rino Denim</h5>
+	      <p class="card-text text-muted">Diseño resistente, ideal para juegos intensos.</p>
+	      <p class="h5 fw-bold text-success">S/29.90</p>
+
+	      <a href="#" class="btn btn-primary" 
+	         onclick="agregarAlCarrito(3, 'Peluche Rino Denim', 29.90, '/images/jugueteperro3.jpg'); return false;">
+	        <i class="fas fa-cart-plus"></i> Agregar al carrito
+	      </a>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Producto 4 - Peluche para perro -->
+	<div class="col-md-5 col-lg-4 mb-4">
+	  <div class="card h-100 shadow-sm">
+	    <img th:src="@{/images/jugueteperro4.jpg}" class="card-img-top" alt="Peluche para perro">
+	    <div class="card-body d-flex flex-column">
+	      <h5 class="card-title">Peluche Ardilla </h5>
+	      <p class="card-text text-muted">Peluche interactivo para morder.</p>
+	      <p class="h5 fw-bold text-success">S/25.00</p>
+
+	      <a href="#" class="btn btn-primary" 
+	         onclick="agregarAlCarrito(4, 'Peluche Ardilla', 25.00, '/images/jugueteperro4.jpg'); return false;">
+	        <i class="fas fa-cart-plus"></i> Agregar al carrito
+	      </a>
+	    </div>
+	  </div>
+	</div>
+
+
+	
+	
+	
+	
+	
+	
+
+
+<!-- Producto 5 -->
+    <div class="col-md-5 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+     <img th:src="@{/images/jugueteperro5.webp}" class="card-img-top" alt="Juguete para perro">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Juguete Hueso Mediano</h5>
+          <p class="card-text text-muted">Juguete Hueso resistente</p>
+          <p class="h5 fw-bold text-success">S/20.00</p>
+		  <a href="#" class="btn btn-primary" 
+		  	  onclick="agregarAlCarrito(5, 'Juguete Hueso Mediano\'S', 20.00, '/images/jugueteperro5.webp'); return false;">
+		  	 <i class="fas fa-cart-plus"></i> Agregar al carrito </a>
+        </div>
+      </div>
+    </div>
+
+
+<!-- Producto 6 -->
+    <div class="col-md-5 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <img th:src="@{/images/jugueteperro6.webp}" class="card-img-top" alt="Juguete para perro">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Pack de juguetes</h5>
+          <p class="card-text text-muted">Detective Ardilla</p>
+          <p class="h5 fw-bold text-success">S/60.00</p>
+		  <a href="#" class="btn btn-primary" 
+		  		  onclick="agregarAlCarrito(6, 'Pack de juguetes\'S', 60.00, '/images/jugueteperro6.webp'); return false;">
+		  		 <i class="fas fa-cart-plus"></i> Agregar al carrito </a>
+		  		  		  	  
+        </div>
+      </div>
+    </div>
+
+
+
+<!-- Producto 7 -->
+    <div class="col-md-5 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <img th:src="@{/images/jugueteperro7.webp}"class="card-img-top" alt="Juguete para perro">
+        <div class="card-body d-flex flex-column">
+			<br>
+          <h5 class="card-title">Peluche Oso</h5>
+          <p class="card-text text-muted">Oso con cuerda de soga</p>
+          <p class="h5 fw-bold text-success">S/37.00</p>
+		  <a href="#" class="btn btn-primary" 
+		  		  		  onclick="agregarAlCarrito(7, 'Peluche Oso\'S', 37.00, '/images/jugueteperro7.webp'); return false;">
+		  		  		 <i class="fas fa-cart-plus"></i> Agregar al carrito </a>
+        </div>
+      </div>
+    </div>
+
+
+
+<!-- Producto 8 -->
+    <div class="col-md-5 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+   <img th:src="@{/images/jugueteperro8.webp}" class="card-img-top" alt="Juguete para perro">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Juguete Para Perros Adulto Pet Care</h5>
+          <p class="card-text text-muted">Care soga con Hueso</p>
+          <p class="h5 fw-bold text-success">S/15.59</p>
+		  <a href="#" class="btn btn-primary" 
+		  	  		  		  onclick="agregarAlCarrito(8, 'Juguete Para Perros Adulto Pet Care\'S', 15.59, '/images/jugueteperro8.webp'); return false;">
+		  	  		  		 <i class="fas fa-cart-plus"></i> Agregar al carrito </a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<!-- Producto 9 -->
+    <div class="col-md-5 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+     <img th:src="@{/images/jugueteperro9.jpg}"class="card-img-top" alt="Juguete para perro">
+        <div class="card-body d-flex flex-column">
+			<br>
+          <h5 class="card-title">Juguete Hueso Adulto</h5>
+          <p class="card-text text-muted">Hueso de Cuero </p>
+          <p class="h5 fw-bold text-success">S/50.00</p>
+		  <a href="#" class="btn btn-primary" 
+		  	  	  		  		  onclick="agregarAlCarrito(9, 'Juguete Hueso Adulto\'S', 50.00, '/images/jugueteperro9.jpg'); return false;">
+		  	  	  		  		 <i class="fas fa-cart-plus"></i> Agregar al carrito </a>
+        </div>
+      </div>
+    </div>
+
+
+
+<!-- Producto 10 -->
+    <div class="col-md-5 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+   <img th:src="@{/images/jugueteperro10.png}" class="card-img-top" alt="Juguete para perro">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Juguete Pelota Perro Adulto</h5>
+          <p class="card-text text-muted">Juguete forma de pelota.</p>
+          <p class="h5 fw-bold text-success">S/45.00</p>
+		  <a href="#" class="btn btn-primary" 
+		  		  	  	  		  		  onclick="agregarAlCarrito(10, 'Juguete Pelota Perro Adulto\'S', 45.00, '/images/jugueteperro10.png'); return false;">
+		  		  	  	  		  		 <i class="fas fa-cart-plus"></i> Agregar al carrito </a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="bg-dark text-white pt-5 pb-4">
+  <div class="container text-md-left">
+    <div class="row">
+
+      <!-- Columna 1: Logo e Info -->
+      <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+        <h5 class="text-uppercase fw-bold mb-4">Clínica Vida Animal</h5>
+      <p style="font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: #5a4a2f; margin-top: 1rem;">
+  Cuidamos a tus compañeros peludos con todo nuestro amor, experiencia y compromiso, porque para nosotros son parte de la familia.
+</p>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase fw-bold mb-4">Enlaces</h6>
+        <ul class="list-unstyled">
+			<li><a th:href="@{/principal}" class="text-white text-decoration-none">Inicio</a></li>
+			<li><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></li>
+
+			<li><a th:href="@{/equipo}" class="text-white text-decoration-none">Equipo</a></li>
+			<li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+
+        </ul>
+      </div>
+
+    <!-- Columna 3: Redes Sociales Mejorada -->
+<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  <h6 class="text-uppercase fw-bold mb-4" style="color: #3a3a3a;">Síguenos</h6>
+  <div class="d-flex gap-3">
+    <a href="#" class="social-icon" aria-label="Facebook">
+      <i class="bi bi-facebook"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Instagram">
+      <i class="bi bi-instagram"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Correo">
+      <i class="bi bi-envelope"></i>
+    </a>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="text-center p-3 border-top border-light mt-4">
+    © 2025 Clínica Veterinaria Vida Animal. Todos los derechos reservados.
+  </div>
+</footer>
+
+
+
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+     document.addEventListener("DOMContentLoaded", function () {
+    const inputBusqueda = document.getElementById("busquedaNombre");
+    const selectOrden = document.getElementById("ordenPrecio");
+    const contenedorProductos = document.querySelector(".row.justify-content-center");
+    const productos = Array.from(contenedorProductos.children);
+
+    function filtrarYOrdenar() {
+      const termino = inputBusqueda.value.toLowerCase();
+      const orden = selectOrden.value;
+
+      let productosFiltrados = productos.filter(producto => {
+        const titulo = producto.querySelector(".card-title").textContent.toLowerCase();
+        return titulo.includes(termino);
+      });
+
+      if (orden) {
+        productosFiltrados.sort((a, b) => {
+          const precioA = parseFloat(a.querySelector(".text-success").textContent.replace("S/", "").trim());
+          const precioB = parseFloat(b.querySelector(".text-success").textContent.replace("S/", "").trim());
+          return orden === "asc" ? precioA - precioB : precioB - precioA;
+        });
+      }
+
+      contenedorProductos.innerHTML = "";
+      productosFiltrados.forEach(p => contenedorProductos.appendChild(p));
+    }
+
+    inputBusqueda.addEventListener("input", filtrarYOrdenar);
+    selectOrden.addEventListener("change", filtrarYOrdenar);
+  });
+
+</script>
+
+
+<!--ESTE CODIGO HACE QUE ENVIA LOS DATOS Y M UESTYRE EN EL CARRO CON IMG -->
+<script>
+	function agregarAlCarrito(id, nombre, precio, imagen) {
+	  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+	  const index = carrito.findIndex(item => item.id === id);
+	  if (index !== -1) {
+	    carrito[index].cantidad += 1;
+	  } else {
+	    carrito.push({ id, nombre, precio, cantidad: 1, imagen });
+	  }
+
+	  localStorage.setItem('carrito', JSON.stringify(carrito));
+	  alert(`Producto "${nombre}" agregado al carrito.`);
+	  actualizarNotificacionCarrito(); // Actualizar el icono inmediatamente
+	}
+
+
+</script>
+
+
+<!--Mostrar notifixaion en el carro de compras -->
+<script>
+  function actualizarNotificacionCarrito() {
+    const badge = document.getElementById('notificacion-carrito');
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+
+    if (cantidadTotal > 0) {
+      badge.style.display = 'inline-block';
+      badge.textContent = cantidadTotal;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = actualizarNotificacionCarrito;
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre Nosotros | Clínica Veterinaria Vida Animal</title>
+
+  <!-- Bootstrap y fuentes -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #f5f5dc;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Navbar submenu */
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 0;
+      display: none;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu {
+      background-color: #f5f5dc;
+      border-radius: 8px;
+      border: 1px solid #d3c9a3;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      min-width: 200px;
+    }
+
+    .dropdown-menu .dropdown-item {
+      color: #5a4a2f;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+      background-color: #d3c9a3;
+      color: #2c220d;
+    }
+
+    /* Footer iconos */
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #c9b177;
+      color: #171313;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .social-icon:hover {
+      background-color: #a68f3d;
+      transform: scale(1.15);
+      color: white;
+    }
+
+    .navbar {
+      background-color: #f5f5dc;
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar .nav-link {
+      color: #5a4a2f;
+      font-weight: 500;
+    }
+
+    .navbar .nav-link:hover {
+      color: #a68f3d;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar" style="background-color: #f5f5dc;">
+    <div class="container-fluid">
+      <!-- Logo e izquierda -->
+     <div class="d-flex align-items-center">
+		<a th:href="@{/ruta-colocar-aun}">
+			  <img th:src="@{/images/princi2..png}" alt="Logo" style="height: 50px;" class="me-3">
+			</a>
+			<a class="nav-link px-3" th:href="@{/principal}">Inicio</a>
+			<a class="nav-link px-3" th:href="@{/nosotros}">Nosotros</a>
+
+    <!-- Dropdown Productos -->
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown">
+        Productos
+      </a>
+      <ul class="dropdown-menu">
+
+        <!-- Submenú Alimentos -->
+        <li class="dropdown-submenu position-relative">
+          <a class="dropdown-item dropdown-toggle" href="#">Alimentos</a>
+          <ul class="dropdown-menu">
+			<a class="dropdown-item" th:href="@{/alimentoperro}">Perros</a>
+			         <li><a class="dropdown-item" th:href="@{/alimentogato}">Gatos</a></li>
+          </ul>
+        </li>
+
+        <!-- Submenú Juguetes -->
+        <li class="dropdown-submenu position-relative">
+          <a class="dropdown-item dropdown-toggle" href="#">Juguetes</a>
+          <ul class="dropdown-menu">
+			<li><a class="dropdown-item" th:href="@{/jugueteperro}">Perros</a></li>
+				  <li><a class="dropdown-item" th:href="@{/juguetegato}">Gatos</a></li>
+          </ul>
+        </li>
+
+        <!-- Opción simple -->
+         <li class="dropdown-submenu position-relative">
+          <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
+          <ul class="dropdown-menu">
+			<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+			      <li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      
+    </div>
+   <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
+   <!-- Botón que redirige a /listarRegistro usando Thymeleaf -->
+   <a class="nav-link px-3" th:href="@{/listarRegistro}">Mis Citas</a>
+  </div>
+
+
+      <!-- Imagen al centro -->
+      <div class="d-none d-lg-block">
+     
+      </div>
+
+      <!-- Derecha -->
+      <div class="d-flex align-items-center">
+        <!-- Dropdown Productos con submenú -->
+		<a class="nav-link px-3" th:href="@{/cargar}">Registro Cita</a>
+		  <a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
+		  <a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
+        
+        <!--CODIGO DEL CARRO Y DEL LOGIN -->
+      <a class="nav-link px-3" href="#">
+    <i class="fas fa-shopping-cart"></i> </a>
+
+	<li class="nav-item dropdown">
+
+	    <a class="nav-link dropdown-toggle px-3 d-flex align-items-center"
+	       href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+	        <!-- 👤 Nombre del usuario o 'Invitado' -->
+	        <span th:text="${session.usuarioLogueado != null ? session.usuarioLogueado.username : 'Invitado'}"></span>
+	    </a>
+
+	    <!-- ✅ Menú desplegable -->
+		<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+		    <!-- Si hay usuario -->
+		    <li th:if="${session.usuarioLogueado != null}">
+		        <a class="dropdown-item" th:href="@{/api/pago/perfil}">Ver perfil</a>
+		    </li>
+		    <li th:if="${session.usuarioLogueado != null}">
+		        <a class="dropdown-item" th:href="@{/api/pago/logout}">Cerrar sesión</a>
+		    </li>
+
+		    <!-- Si NO hay usuario -->
+		    <li th:if="${session.usuarioLogueado == null}">
+		        <a class="dropdown-item" th:href="@{/api/pago/login}">Iniciar sesión</a>
+		    </li>
+
+		</ul>
+	</li>
+
+
+        
+
+
+      </div>
+    </div>
+  </nav>
+  
+  
+  
+  <!-- SECCIÓN NOSOTROS -->
+  <main class="container py-5">
+    <div class="row align-items-center">
+      <!-- Texto -->
+      <div class="col-md-6">
+        <h1 class="fw-bold" style="color: #5a4a2f;">Clínica Veterinaria Vida Animal</h1>
+        <h4 class="mb-3 text-muted">Más de 8 años de experiencia en el cuidado animal</h4>
+        <p class="fs-5 text-secondary">
+          Nos dedicamos con pasión al bienestar de tus mascotas. En Clínica Veterinaria Vida Animal creemos que los animales son parte de la familia, y trabajamos para ofrecer productos y servicios de alta calidad que lleguen a más hogares del país.
+        </p>
+      </div>
+
+      <!-- Imagen -->
+      <div class="col-md-6 text-center">
+     <img th:src="@{/images/nosotros.png}" alt="Veterinario cuidando a un perro" class="img-fluid rounded" style="max-height: 450px;">
+      </div>
+    </div>
+  </main>
+<br>
+
+
+<section class="container my-5 py-4 rounded" style="background-color: #f5f5dc;">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold" style="color: #5a4a2f;">Nuestra Filosofía</h2>
+    <p class="text-muted">Conoce lo que nos impulsa a brindar el mejor cuidado a tus mascotas</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Misión -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="text-center mb-3">
+            <i class="fas fa-bullseye fa-2x text-warning"></i>
+          </div>
+          <h5 class="card-title text-center">Misión</h5>
+          <p class="card-text text-muted">
+            Ofrecer atención veterinaria integral y productos de calidad, mejorando la vida de las mascotas y sus familias.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visión -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="text-center mb-3">
+            <i class="fas fa-eye fa-2x text-warning"></i>
+          </div>
+          <h5 class="card-title text-center">Visión</h5>
+          <p class="card-text text-muted">
+            Ser la clínica veterinaria de referencia a nivel nacional, comprometida con la salud y el bienestar animal.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Valores -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="text-center mb-3">
+            <i class="fas fa-heart fa-2x text-warning"></i>
+          </div>
+          <h5 class="card-title text-center">Valores</h5>
+          <ul class="list-unstyled text-muted">
+            <li><i class="fas fa-paw me-2 text-secondary"></i>Compromiso</li>
+            <li><i class="fas fa-paw me-2 text-secondary"></i>Amor por los animales</li>
+            <li><i class="fas fa-paw me-2 text-secondary"></i>Empatía</li>
+            <li><i class="fas fa-paw me-2 text-secondary"></i>Ética profesional</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="container mb-5" style="background-color: #f5f5dc; padding: 2rem; border-radius: 8px;">
+ <div class="text-center mb-4">
+  <h3 class="text-muted">Nuestra</h3>
+  <h2 class="fw-bold" style="color: #5a4a2f;">Historia</h2>
+</div>
+
+
+  <div class="accordion" id="historiaTimeline">
+    <!-- Evento 2014 -->
+    <div class="accordion-item" style="background-color: #fdfcf2; border: none;">
+      <h2 class="accordion-header" id="heading2014">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2014" aria-expanded="false" aria-controls="collapse2014">
+          <i class="fas fa-chevron-right me-3 text-warning"></i> 2014: Fundación
+        </button>
+      </h2>
+      <div id="collapse2014" class="accordion-collapse collapse" aria-labelledby="heading2014" data-bs-parent="#historiaTimeline">
+        <div class="accordion-body">
+          Iniciamos con esta empresa vendiendo solamente productos para mascotas. Poco a poco fuimos creciendo gracias a la confianza de nuestros clientes.
+        </div>
+      </div>
+    </div>
+
+    <!-- Puedes agregar más eventos similares -->
+    <!-- Evento 2016 (Ejemplo adicional) -->
+    <div class="accordion-item" style="background-color: #fdfcf2; border: none;">
+      <h2 class="accordion-header" id="heading2016">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2016" aria-expanded="false" aria-controls="collapse2016">
+          <i class="fas fa-chevron-right me-3 text-warning"></i> 2016: Primera clínica
+        </button>
+      </h2>
+      <div id="collapse2016" class="accordion-collapse collapse" aria-labelledby="heading2016" data-bs-parent="#historiaTimeline">
+        <div class="accordion-body">
+          Abrimos nuestra primera clínica veterinaria en Lima, ampliando nuestros servicios a consultas, vacunas y emergencias.
+        </div>
+      </div>
+    </div>
+
+  <!-- Evento 2020: Expansión online -->
+<div class="accordion-item" style="background-color: #fdfcf2; border: none;">
+  <h2 class="accordion-header" id="heading2020">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2020" aria-expanded="false" aria-controls="collapse2020">
+      <i class="fas fa-chevron-right me-3 text-warning"></i> 2020: Expansión online
+    </button>
+  </h2>
+  <div id="collapse2020" class="accordion-collapse collapse" aria-labelledby="heading2020" data-bs-parent="#historiaTimeline">
+    <div class="accordion-body">
+      Nos adaptamos al cambio digital y lanzamos nuestra tienda virtual para llegar a más familias con productos a domicilio.
+    </div>
+  </div>
+</div>
+
+<!-- Evento 2022: Crecimiento -->
+<div class="accordion-item" style="background-color: #fdfcf2; border: none;">
+  <h2 class="accordion-header" id="heading2022">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2022" aria-expanded="false" aria-controls="collapse2022">
+      <i class="fas fa-chevron-right me-3 text-warning"></i> 2022: Crecimiento
+    </button>
+  </h2>
+  <div id="collapse2022" class="accordion-collapse collapse" aria-labelledby="heading2022" data-bs-parent="#historiaTimeline">
+    <div class="accordion-body">
+      A lo largo de los años, nuestro compromiso con la salud y bienestar animal nos ha permitido crecer junto a miles 
+      de familias que confían en nosotros. Hoy, no solo somos una clínica veterinaria, sino una comunidad unida por el amor a los animales.
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Evento 2023: Posicionamiento -->
+<div class="accordion-item" style="background-color: #fdfcf2; border: none;">
+  <h2 class="accordion-header" id="heading2023">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2023" aria-expanded="false" aria-controls="collapse2022">
+      <i class="fas fa-chevron-right me-3 text-warning"></i> 2023: Posicionamiento
+    </button>
+  </h2>
+  <div id="collapse2023" class="accordion-collapse collapse" aria-labelledby="heading2022" data-bs-parent="#historiaTimeline">
+    <div class="accordion-body">
+    Nuestra clínica se posicionó entre las mejores de su categoría, 
+    destacando por la calidad de atención, tecnología avanzada y un equipo comprometido con el bienestar animal.
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Evento 2023: Presente -->
+<div class="accordion-item" style="background-color: #fdfcf2; border: none;">
+  <h2 class="accordion-header" id="heading2025">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2025" aria-expanded="false" aria-controls="collapse2022">
+      <i class="fas fa-chevron-right me-3 text-warning"></i> 2025: Presente
+    </button>
+  </h2>
+  <div id="collapse2025" class="accordion-collapse collapse" aria-labelledby="heading2025" data-bs-parent="#historiaTimeline">
+    <div class="accordion-body">
+   En 2025, nos consolidamos como una clínica veterinaria líder, reconocida por la calidad de nuestros servicios, la confianza de miles de clientes y el compromiso constante con la salud y el bienestar animal.
+    Seguimos innovando y ampliando nuestra oferta para cuidar mejor a las mascotas y acompañar a sus familias en cada etapa.
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</section>
+
+
+<footer class="bg-dark text-white pt-5 pb-4">
+  <div class="container text-md-left">
+    <div class="row">
+
+      <!-- Columna 1: Logo e Info -->
+      <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+        <h5 class="text-uppercase fw-bold mb-4">Clínica Vida Animal</h5>
+      <p style="font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: #5a4a2f; margin-top: 1rem;">
+  Cuidamos a tus compañeros peludos con todo nuestro amor, experiencia y compromiso, porque para nosotros son parte de la familia.
+</p>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase fw-bold mb-4">Enlaces</h6>
+        <ul class="list-unstyled">
+			<li><a th:href="@{/principal}" class="text-white text-decoration-none">Inicio</a></li>
+			<li><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></li>
+			<li><a th:href="@{/equipo}" class="text-white text-decoration-none">Equipo</a></li>
+			<li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+
+        </ul>
+      </div>
+
+    <!-- Columna 3: Redes Sociales Mejorada -->
+<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  <h6 class="text-uppercase fw-bold mb-4" style="color: #3a3a3a;">Síguenos</h6>
+  <div class="d-flex gap-3">
+    <a href="#" class="social-icon" aria-label="Facebook">
+      <i class="bi bi-facebook"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Instagram">
+      <i class="bi bi-instagram"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Correo">
+      <i class="bi bi-envelope"></i>
+    </a>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="text-center p-3 border-top border-light mt-4">
+    © 2025 Clínica Veterinaria Vida Animal. Todos los derechos reservados.
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

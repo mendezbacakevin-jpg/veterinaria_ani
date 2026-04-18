@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrito de Compras - Clínica Vida Animal</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #fdfbf4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .cart-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .cart-title {
+      font-weight: bold;
+      color: #5a4a2f;
+    }
+
+    .table > :not(caption) > * > * {
+      vertical-align: middle;
+    }
+
+    .btn-back {
+      background-color: #a68f3d;
+      color: white;
+    }
+
+    .btn-back:hover {
+      background-color: #8e7b2e;
+    }
+
+    .btn-delete {
+      color: red;
+      cursor: pointer;
+    }
+
+    .total-text {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .username-display {
+      font-style: italic;
+      color: #555;
+    }
+	
+	
+	/*PARA EL NOMBRE*/
+	.username-display i {
+	    margin-right: 8px;
+	    color: #7494ec;
+	}
+
+	
+	
+  </style>
+</head>
+<body>
+
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="cart-title">🛒 Carrito de Compras</h2>
+	<div class="username-display">
+	    <i class="fa-solid fa-user"></i>
+	    <span th:text="${session.usuarioLogueado != null ? session.usuarioLogueado.username : 'Invitado'}"></span>
+	</div>
+  </div>
+
+  <div class="cart-container">
+    <div class="table-responsive">
+      <table class="table align-middle text-center">
+        <thead class="table-warning">
+          <tr>
+            <th>Producto</th>
+            <th>Nombre</th>
+            <th>Precio (S/)</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+          <!-- Productos se insertan dinámicamente con JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+      <button class="btn btn-danger" onclick="vaciarCarrito()">
+        <i class="fas fa-trash"></i> Vaciar Carrito
+      </button>
+      <div class="total-text">
+        Total: <span id="total">S/ 0.00</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 d-flex justify-content-between">
+    <button class="btn btn-back" onclick="history.back()">
+      <i class="fas fa-arrow-left"></i> Volver atrás
+    </button>
+	
+	
+	<!--PARA PROCESAR EL PAGO-->
+	<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPago">
+	  <i class="fas fa-credit-card"></i> Proceder al pago
+	</button>
+	
+	
+	<!-- Modal para seleccionar tarjeta y pagar -->
+	<div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <form id="formPago" onsubmit="procesarPago(event)">
+	        <div class="modal-header">
+	          <h5 class="modal-title" id="modalPagoLabel">Pago con Tarjeta</h5>
+	          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+	        </div>
+	        <div class="modal-body">
+
+	          <!-- 🔹 DATOS DEL COMPRADOR -->
+	          <h6 class="fw-bold mb-3">Datos del Comprador</h6>
+
+	          <div class="mb-3">
+	            <label for="nombreCliente" class="form-label">Nombre completo</label>
+	            <input type="text" class="form-control" id="nombreCliente" placeholder="Ej. Juan Pérez" required>
+	          </div>
+
+	          <div class="mb-3">
+	            <label for="emailCliente" class="form-label">Correo electrónico</label>
+	            <input type="email" class="form-control" id="emailCliente" placeholder="Ej. juanperez@email.com" required>
+	          </div>
+
+	          <div class="mb-3">
+	            <label for="direccionCliente" class="form-label">Dirección</label>
+	            <input type="text" class="form-control" id="direccionCliente" placeholder="Ej. Av. Los Olivos 123, Lima" required>
+	          </div>
+
+	          <div class="mb-3">
+	            <label for="telefonoCliente" class="form-label">Teléfono</label>
+	            <input type="tel" class="form-control" id="telefonoCliente" placeholder="Ej. 987654321" maxlength="9" required>
+	          </div>
+
+	          <hr class="my-4">
+
+	          <!-- 🔹 DATOS DE TARJETA -->
+	          <h6 class="fw-bold mb-3">Datos de Tarjeta</h6>
+
+	          <div class="mb-3">
+	            <label for="tipoTarjeta" class="form-label">Tipo de tarjeta</label>
+	            <select class="form-select" id="tipoTarjeta" required>
+	              <option value="" selected disabled>Seleccione</option>
+	              <option value="visa">Visa</option>
+	              <option value="mastercard">Mastercard</option>
+	              <option value="amex">American Express</option>
+	              <option value="paypal">Paypal</option>
+	            </select>
+	          </div>
+
+	          <div class="mb-3">
+	            <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
+	            <input type="text" class="form-control" id="numeroTarjeta" placeholder="1234 5678 9012 3456" maxlength="19" required>
+	          </div>
+
+	          <div class="mb-3">
+	            <label for="fechaExp" class="form-label">Fecha de expiración</label>
+	            <input type="month" class="form-control" id="fechaExp" required>
+	          </div>
+
+	          <div class="mb-3">
+	            <label for="cvv" class="form-label">CVV</label>
+	            <input type="password" class="form-control" id="cvv" maxlength="4" required>
+	          </div>
+
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+	          <button type="submit" class="btn btn-primary">Pagar</button>
+	        </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+<!--MOSTRAR EL PRODUCTO AGRRGAOD EN EL CARRO CON TODOS LOS DATOS-->
+<script>
+
+
+
+  const tbody = document.getElementById('cart-body');
+  const totalSpan = document.getElementById('total');
+  // Eliminar o comentar la variable carrito declarada vacía
+  // const carrito = [ ... ]
+
+  // Cambiar renderCarrito para que tome carrito desde localStorage
+  function renderCarrito() {
+    // Leer carrito guardado
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    tbody.innerHTML = "";
+    let total = 0;
+
+    if (carrito.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center">Tu carrito está vacío.</td></tr>`;
+      totalSpan.textContent = "S/ 0.00";
+      return;
+    }
+
+    carrito.forEach((item, index) => {
+      const subtotal = item.precio * item.cantidad;
+      total += subtotal;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><img src="${item.imagen}" alt="${item.nombre}" style="width: 70px; height: auto;"></td>
+        <td>${item.nombre}</td>
+        <td>S/ ${item.precio.toFixed(2)}</td>
+        <td>
+          <input type="number" min="1" value="${item.cantidad}" class="form-control text-center" style="width: 70px;" onchange="cambiarCantidad(${index}, this.value)">
+        </td>
+        <td>S/ ${subtotal.toFixed(2)}</td>
+        <td>
+          <i class="fas fa-times btn-delete" onclick="eliminarProducto(${index})"></i>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    totalSpan.textContent = "S/ " + total.toFixed(2);
+  }
+
+  function cambiarCantidad(index, nuevaCantidad) {
+    nuevaCantidad = parseInt(nuevaCantidad);
+    if (nuevaCantidad < 1 || isNaN(nuevaCantidad)) return;
+
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito[index].cantidad = nuevaCantidad;
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    renderCarrito();
+  }
+
+  function eliminarProducto(index) {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.splice(index, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    renderCarrito();
+  }
+
+  function vaciarCarrito() {
+    if (confirm("¿Estás seguro de vaciar el carrito?")) {
+      localStorage.removeItem('carrito');
+      renderCarrito();
+    }
+  }
+  
+  
+  
+  function agregarAlCarrito(id, nombre, precio, imagen) {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    const index = carrito.findIndex(item => item.id === id);
+    if (index !== -1) {
+      carrito[index].cantidad += 1;  // si ya existe, suma 1
+    } else {
+      carrito.push({ id, nombre, precio, cantidad: 1, imagen }); // cantidad inicia en 1
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    alert(`Producto "${nombre}" agregado al carrito.`);
+  }
+
+  
+  
+
+
+  // Cargar carrito al inicio
+  window.onload = renderCarrito;
+
+  
+
+  renderCarrito();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function cargarCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const tbody = document.getElementById('lista-carrito');
+    tbody.innerHTML = '';
+
+    let totalFinal = 0;
+
+    carrito.forEach(producto => {
+      const totalProducto = producto.precio * producto.cantidad;
+      totalFinal += totalProducto;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${producto.nombre}</td>
+        <td>${producto.precio.toFixed(2)}</td>
+        <td>${producto.cantidad}</td>
+        <td>${totalProducto.toFixed(2)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    if (carrito.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center">Tu carrito está vacío.</td></tr>';
+    } else {
+      const trTotal = document.createElement('tr');
+      trTotal.innerHTML = `
+        <td colspan="3" class="text-end fw-bold">Total a pagar:</td>
+        <td class="fw-bold">${totalFinal.toFixed(2)}</td>
+      `;
+      tbody.appendChild(trTotal);
+    }
+  }
+
+  function finalizarCompra() {
+    alert('Gracias por tu compra :)');
+    localStorage.removeItem('carrito');
+    cargarCarrito();
+  }
+
+  function volverAtras() {
+    window.history.back();
+  }
+
+  // Carga al cargar la página
+  window.onload = cargarCarrito;
+</script>
+
+
+
+
+
+<!-- CODIGO DE DONDE ESTAN LOS PARAMETROS DE LA TARJETA Y DATOS PERSONALES -->
+<script>
+	async function procesarPago(event) {
+	    event.preventDefault();
+
+	    const nombre = document.getElementById('nombreCliente').value.trim();
+	    const email = document.getElementById('emailCliente').value.trim();
+	    const direccion = document.getElementById('direccionCliente').value.trim();
+	    const telefono = document.getElementById('telefonoCliente').value.trim();
+	    const tipo = document.getElementById('tipoTarjeta').value;
+
+	    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+	    if (!nombre || !email || !direccion || !telefono || !tipo || carrito.length === 0) {
+	        alert("Completa todos los campos y asegúrate de que tu carrito no esté vacío.");
+	        return;
+	    }
+
+	    const datos = { nombre, email, direccion, telefono, tipo, carrito };
+
+	    try {
+	        const response = await fetch('http://localhost:8080/api/pago/enviar-correo', {
+	            method: 'POST',
+	            headers: { 'Content-Type': 'application/json' },
+	            body: JSON.stringify(datos)
+	        });
+
+	        if (!response.ok) throw new Error("Error al enviar correo");
+
+	        alert(`Pago procesado exitosamente 🎉\nGracias por tu compra, ${nombre} 🐾`);
+
+	        // Vaciar carrito y refrescar
+	        localStorage.removeItem('carrito');
+	        renderCarrito();
+
+	        const modal = bootstrap.Modal.getInstance(document.getElementById('modalPago'));
+	        modal.hide();
+
+	    } catch (error) {
+	        console.error(error);
+	        alert("Ocurrió un error al procesar el pago. Intenta nuevamente.");
+	    }
+	}
+
+</script>
+
+
+</body>
+</html>

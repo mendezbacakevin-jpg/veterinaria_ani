@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laboratorio para Gatos y Perros - Clínica Vida Animal</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- FontAwesome para iconos -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .hero {
+      background: url('https://via.placeholder.com/1200x400?text=Cirugías+Veterinarias') center/cover no-repeat;
+      color: white;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      background-color: rgba(0,0,0,0.4);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+    }
+    .section-title {
+      color: #a68f3d;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Submenú dentro del dropdown */
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 0;
+      display: none;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Opcional: mejor visibilidad */
+    .dropdown-menu > li > a {
+      white-space: nowrap;
+    }
+
+    /*ESTILO DEL FOOTER*/
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #c9b177; /* tono crema más oscuro */
+      color: rgb(23, 19, 19);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .social-icon:hover {
+      background-color: #a68f3d; /* un poco más oscuro para hover */
+      transform: scale(1.15);
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Dropdown menú base */
+    .dropdown-menu {
+      background-color: #f5f5dc; /* crema */
+      border-radius: 8px;
+      border: 1px solid #d3c9a3; /* borde suave */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem 0;
+      min-width: 200px;
+    }
+
+    /* Items */
+    .dropdown-menu .dropdown-item {
+      color: #5a4a2f; /* marrón oscuro */
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Hover en items */
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item:focus {
+      background-color: #d3c9a3; /* crema oscuro */
+      color: #2c220d;
+    }
+
+    /* Submenu */
+    .dropdown-submenu .dropdown-menu {
+      background-color: #f5f5dc;
+      border-radius: 8px;
+      border: 1px solid #d3c9a3;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Icono toggle (flecha) */
+    .dropdown-toggle::after {
+      border-top: 0.3em solid #5a4a2f;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
+      margin-left: 0.255em;
+    }
+
+    /* Ajuste para el submenú cuando se muestra */
+    .dropdown-submenu:hover > .dropdown-menu {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar" style="background-color: #f5f5dc;">
+  <div class="container-fluid">
+    <!-- Logo e izquierda -->
+    <div class="d-flex align-items-center">
+		<a th:href="@{/ruta-colocar-aun}">
+		  <img th:src="@{/images/princi2..png}" alt="Logo" style="height: 50px;" class="me-3">
+		</a>
+		<a class="nav-link px-3" th:href="@{/principal}">Inicio</a>
+		<a class="nav-link px-3" th:href="@{/nosotros}">Nosotros</a>
+
+      <!-- Dropdown Productos -->
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown">
+          Productos
+        </a>
+        <ul class="dropdown-menu">
+          <!-- Submenú Alimentos -->
+          <li class="dropdown-submenu position-relative">
+            <a class="dropdown-item dropdown-toggle" href="#">Alimentos</a>
+            <ul class="dropdown-menu">
+				<a class="dropdown-item" th:href="@{/alimentoperro}">Perros</a>
+				     <li><a class="dropdown-item" th:href="@{/alimentogato}">Gatos</a></li>
+            </ul>
+          </li>
+          <!-- Submenú Juguetes -->
+          <li class="dropdown-submenu position-relative">
+            <a class="dropdown-item dropdown-toggle" href="#">Juguetes</a>
+            <ul class="dropdown-menu">
+				<li><a class="dropdown-item" th:href="@{/jugueteperro}">Perros</a></li>
+						  <li><a class="dropdown-item" th:href="@{/juguetegato}">Gatos</a></li>
+            </ul>
+          </li>
+          <!-- Opción simple -->
+          <li class="dropdown-submenu position-relative">
+            <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
+            <ul class="dropdown-menu">
+				<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+				      <li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
+	<!-- Botón que redirige a /listarRegistro usando Thymeleaf -->
+	<a class="nav-link px-3" th:href="@{/listarRegistro}">Mis Citas</a>
+    </div>
+
+    <!-- Imagen al centro -->
+    <div class="d-none d-lg-block"></div>
+
+    <!-- Derecha -->
+    <div class="d-flex align-items-center">
+		<a class="nav-link px-3" th:href="@{/cargar}">Registro Cita</a>
+		  <a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
+		  <a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
+      <a class="nav-link px-3" href="#"><i class="fas fa-shopping-cart"></i></a>
+      <a class="nav-link px-3" href="#"><i class="fas fa-user"></i></a>
+    </div>
+  </div>
+</nav>
+<!-- Hero / Banner -->
+<section class="hero mb-5">
+  <h1>Laboratorios Veterinarios</h1>
+</section>
+
+<main class="container mb-5">
+
+  <!-- Introducción -->
+  <section class="mb-5">
+    <h2 class="section-title fw-bold mb-3">¿Qué es nuestro Laboratorio Veterinario?</h2>
+    <p>
+      En Clínica Vida Animal contamos con un laboratorio equipado para realizar pruebas diagnósticas rápidas y confiables. Nuestro objetivo es detectar de manera precisa cualquier condición que afecte la salud de tu mascota para brindar un tratamiento adecuado y oportuno.
+    </p>
+  </section>
+
+  <!-- Servicios del Laboratorio -->
+  <section class="mb-5">
+    <h2 class="section-title fw-bold mb-3">Servicios de Laboratorio que Ofrecemos</h2>
+    <ul>
+      <li><i class="fas fa-vials text-primary me-2"></i>Análisis de sangre completo (hemograma, bioquímica).</li>
+      <li><i class="fas fa-microscope text-primary me-2"></i>Exámenes de orina y heces.</li>
+      <li><i class="fas fa-virus text-primary me-2"></i>Detección de parásitos internos y externos.</li>
+      <li><i class="fas fa-dna text-primary me-2"></i>Pruebas de diagnóstico molecular y genética.</li>
+      <li><i class="fas fa-prescription-bottle-alt text-primary me-2"></i>Pruebas de alergias y enfermedades infecciosas.</li>
+    </ul>
+  </section>
+
+  <!-- Beneficios -->
+  <section class="mb-5">
+    <h2 class="section-title fw-bold mb-3">Beneficios de Contar con Laboratorio Propio</h2>
+    <ul>
+      <li><i class="fas fa-check-circle text-success me-2"></i>Resultados rápidos y precisos.</li>
+      <li><i class="fas fa-check-circle text-success me-2"></i>Diagnósticos tempranos que mejoran el tratamiento.</li>
+      <li><i class="fas fa-check-circle text-success me-2"></i>Reducción de costos y tiempos en pruebas externas.</li>
+      <li><i class="fas fa-check-circle text-success me-2"></i>Seguimiento personalizado de la salud de tu mascota.</li>
+    </ul>
+  </section>
+
+  <!-- ¿Cómo agendar una cita? -->
+  <section>
+    <h2 class="section-title fw-bold mb-3">¿Cómo solicitar una prueba de laboratorio?</h2>
+    <p>
+      Puedes agendar una cita contactándonos por teléfono al <strong>(0000) 1184-5</strong> o enviando un correo a <a href="mailto:info@gmail.com">info@gmail.com</a>. Nuestro equipo te orientará sobre las pruebas necesarias para tu mascota.
+    </p>
+    <p>
+      Visítanos en <strong>AV. General 1955 | Jesús María Lima</strong>, de lunes a domingo.
+    </p>
+<li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+  </section>
+
+</main>
+
+<footer class="bg-dark text-white pt-5 pb-4">
+  <div class="container text-md-left">
+    <div class="row">
+
+      <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+        <h5 class="text-uppercase fw-bold mb-4">Clínica Vida Animal</h5>
+        <p style="font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: #5a4a2f; margin-top: 1rem;">
+          Cuidamos a tus compañeros peludos con todo nuestro amor, experiencia y compromiso, porque para nosotros son parte de la familia.
+        </p>
+      </div>
+
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase fw-bold mb-4">Enlaces</h6>
+        <ul class="list-unstyled">
+			<li><a th:href="@{/principal}" class="text-white text-decoration-none">Inicio</a></li>
+				<li><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></li>
+
+				<li><a th:href="@{/equipo}" class="text-white text-decoration-none">Equipo</a></li>
+				<li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+        <h6 class="text-uppercase fw-bold mb-4" style="color: #3a3a3a;">Síguenos</h6>
+        <div class="d-flex gap-3">
+          <a href="#" class="social-icon" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a href="#" class="social-icon" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+          </a>
+          <a href="#" class="social-icon" aria-label="Correo">
+            <i class="bi bi-envelope"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="text-center p-3 border-top border-light mt-4">
+    © 2025 Clínica Veterinaria Vida Animal. Todos los derechos reservados.
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

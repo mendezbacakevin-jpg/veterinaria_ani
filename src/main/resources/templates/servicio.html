@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clínica Veterinaria Vida Animal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+  
+
+
+  <style>
+    /* Submenú dentro del dropdown */
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 0;
+      display: none;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Opcional: mejor visibilidad */
+    .dropdown-menu > li > a {
+      white-space: nowrap;
+    }
+
+
+
+    /*ESTILO DEL FOOTER*/
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c9b177; /* tono crema más oscuro */
+    color: rgb(23, 19, 19);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .social-icon:hover {
+    background-color: #a68f3d; /* un poco más oscuro para hover */
+    transform: scale(1.15);
+    text-decoration: none;
+    color: white;
+  }
+
+
+/* CODIGO PARA LA PARTE DEL SUBMENU*/
+
+
+/* Dropdown menú base */
+.dropdown-menu {
+  background-color: #f5f5dc; /* crema */
+  border-radius: 8px;
+  border: 1px solid #d3c9a3; /* borde suave */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 0.5rem 0;
+  min-width: 200px;
+}
+
+/* Items */
+.dropdown-menu .dropdown-item {
+  color: #5a4a2f; /* marrón oscuro */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover en items */
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus {
+  background-color: #d3c9a3; /* crema oscuro */
+  color: #2c220d;
+}
+
+/* Submenu */
+.dropdown-submenu .dropdown-menu {
+  background-color: #f5f5dc;
+  border-radius: 8px;
+  border: 1px solid #d3c9a3;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Icono toggle (flecha) */
+.dropdown-toggle::after {
+  border-top: 0.3em solid #5a4a2f;
+  border-right: 0.3em solid transparent;
+  border-left: 0.3em solid transparent;
+  margin-left: 0.255em;
+}
+
+/* Ajuste para el submenú cuando se muestra */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+/*ESILOS SOLO PARA LA PARTE DE LAS TARJETAS*/
+
+
+/* Tarjetas de servicios - estilo luminoso y moderno */
+.service-card {
+  background: #fffbea; /* un tono suave crema */
+  border-radius: 15px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 8px 15px rgba(166, 143, 61, 0.15); /* sombra cálida */
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 15px 25px rgba(166, 143, 61, 0.3);
+}
+
+.service-icon {
+  font-size: 3.5rem;
+  color: #a68f3d; /* mismo color dorado que el título */
+  margin-bottom: 1.25rem;
+  transition: color 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  color: #7a6c27; /* un tono dorado más oscuro al hacer hover */
+}
+
+.service-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #4a462b; /* marrón oscuro suave */
+  margin-bottom: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.service-desc {
+  font-size: 1rem;
+  color: #6b6845; /* tono marrón claro */
+  line-height: 1.5;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Animación fade-in, manteniéndola suave */
+.fade-in {
+  opacity: 0;
+  transform: translateY(25px);
+  animation-name: fadeInUp;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+  </style>
+</head>
+<body style="background-color: #f5f5dc;">
+
+<nav class="navbar navbar" style="background-color: #f5f5dc;">
+  <div class="container-fluid">
+    <!-- Logo e izquierda -->
+   <div class="d-flex align-items-center">
+	<a th:href="@{/ruta-colocar-aun}">
+	  <img th:src="@{/images/princi2..png}" alt="Logo" style="height: 50px;" class="me-3">
+	</a>
+	<a class="nav-link px-3" th:href="@{/principal}">Inicio</a>
+	<a class="nav-link px-3" th:href="@{/nosotros}">Nosotros</a>
+  <!-- Dropdown Productos -->
+  <div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown">
+      Productos
+    </a>
+    <ul class="dropdown-menu">
+
+      <!-- Submenú Alimentos -->
+      <li class="dropdown-submenu position-relative">
+        <a class="dropdown-item dropdown-toggle" href="#">Alimentos</a>
+        <ul class="dropdown-menu">
+			<a class="dropdown-item" th:href="@{/alimentoperro}">Perros</a>
+			        <li><a class="dropdown-item" th:href="@{/alimentogato}">Gatos</a></li>
+        </ul>
+      </li>
+
+      <!-- Submenú Juguetes -->
+      <li class="dropdown-submenu position-relative">
+        <a class="dropdown-item dropdown-toggle" href="#">Juguetes</a>
+        <ul class="dropdown-menu">
+			<li><a class="dropdown-item" th:href="@{/jugueteperro}">Perros</a></li>
+				  <li><a class="dropdown-item" th:href="@{/juguetegato}">Gatos</a></li>
+        </ul>
+      </li>
+
+      <!-- Opción simple -->
+       <li class="dropdown-submenu position-relative">
+        <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
+        <ul class="dropdown-menu">
+			<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+			      <li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    
+  </div>
+    <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
+	<!-- Botón que redirige a /listarRegistro usando Thymeleaf -->
+	<a class="nav-link px-3" th:href="@{/listarRegistro}">Mis Citas</a>
+</div>
+
+
+    <!-- Imagen al centro -->
+    <div class="d-none d-lg-block">
+   
+    </div>
+
+    <!-- Derecha -->
+    <div class="d-flex align-items-center">
+      <!-- Dropdown Productos con submenú -->
+	  <a class="nav-link px-3" th:href="@{/prueba}">Registro Cita</a>
+	  <a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
+	  <a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
+      
+      <!--CODIGO DEL CARRO Y DEL LOGIN -->
+    <a class="nav-link px-3" href="#">
+  <i class="fas fa-shopping-cart"></i> </a>
+
+
+  <li class="nav-item dropdown">
+
+      <a class="nav-link dropdown-toggle px-3 d-flex align-items-center"
+         href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+          <!-- 👤 Nombre del usuario o 'Invitado' -->
+          <span th:text="${session.usuarioLogueado != null ? session.usuarioLogueado.username : 'Invitado'}"></span>
+      </a>
+
+      <!-- ✅ Menú desplegable -->
+	  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+	      <!-- Usuario logueado -->
+	      <li th:if="${session.usuarioLogueado != null}">
+	          <a class="dropdown-item" th:href="@{/api/pago/perfil}">Ver perfil</a>
+	      </li>
+	      <li th:if="${session.usuarioLogueado != null}">
+	          <a class="dropdown-item" th:href="@{/api/pago/logout}">Cerrar sesión</a>
+	      </li>
+
+	      <!-- Usuario NO logueado -->
+	      <li th:if="${session.usuarioLogueado == null}">
+	          <a class="dropdown-item" th:href="@{/api/pago/login}">Iniciar sesión</a>
+	      </li>
+
+	  </ul>
+  </li>
+
+      
+
+
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+<!-- Sección Servicios -->
+<section class="container my-5 py-4">
+  <h2 class="text-center mb-5 fw-bold" style="color: #a68f3d; text-shadow: 1px 1px 3px rgba(0,0,0,0.1);">
+    Nuestros Servicios
+  </h2>
+  <div class="row g-4">
+    <div class="col-md-4 fade-in" style="animation-delay: 0.1s;">
+      <div class="service-card text-center">
+        <i class="fas fa-stethoscope service-icon"></i>
+        <h3 class="service-title">Consulta General</h3>
+        <p class="service-desc">Evaluamos la salud de tu mascota con diagnóstico y recomendaciones personalizadas.</p>
+      </div>
+    </div>
+
+    
+    <div class="col-md-4 fade-in" style="animation-delay: 0.3s;">
+      <div class="service-card text-center">
+        <i class="fas fa-syringe service-icon"></i>
+        <h3 class="service-title">Vacunación</h3>
+        <p class="service-desc">Protegemos a tus mascotas con vacunas seguras y actualizadas para su bienestar.</p>
+      </div>
+    </div>
+
+
+    <div class="col-md-4 fade-in" style="animation-delay: 0.5s;">
+      <div class="service-card text-center">
+        <i class="fas fa-user-md service-icon"></i>
+        <h3 class="service-title">Cirugía Veterinaria</h3>
+        <p class="service-desc">Procedimientos quirúrgicos seguros con un equipo profesional y tecnología avanzada.</p>
+      </div>
+    </div>
+
+
+    <div class="col-md-4 fade-in" style="animation-delay: 0.7s;">
+      <div class="service-card text-center">
+        <i class="fas fa-pills service-icon"></i>
+        <h3 class="service-title">Desparasitación</h3>
+        <p class="service-desc">Tratamientos efectivos para mantener a tus mascotas libres de parásitos internos y externos.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4 fade-in" style="animation-delay: 0.9s;">
+      <div class="service-card text-center">
+        <i class="fas fa-x-ray service-icon"></i>
+        <h3 class="service-title">Diagnóstico por Imágenes</h3>
+        <p class="service-desc">Rayos X y ecografías para diagnósticos precisos y tratamiento oportuno.</p>
+      </div>
+    </div>
+
+
+    <div class="col-md-4 fade-in" style="animation-delay: 1.1s;">
+      <div class="service-card text-center">
+        <i class="fas fa-tooth service-icon"></i>
+        <h3 class="service-title">Cuidado Dental</h3>
+        <p class="service-desc">Limpieza y cuidado bucal para una salud integral de tu mascota.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="bg-dark text-white pt-5 pb-4">
+  <div class="container text-md-left">
+    <div class="row">
+
+      <!-- Columna 1: Logo e Info -->
+      <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+        <h5 class="text-uppercase fw-bold mb-4">Clínica Vida Animal</h5>
+      <p style="font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: #5a4a2f; margin-top: 1rem;">
+  Cuidamos a tus compañeros peludos con todo nuestro amor, experiencia y compromiso, porque para nosotros son parte de la familia.
+</p>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase fw-bold mb-4">Enlaces</h6>
+        <ul class="list-unstyled">
+			<li><a th:href="@{/principal}" class="text-white text-decoration-none">Inicio</a></li>
+					<li><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></li>
+					<li><a th:href="@{/equipo}" class="text-white text-decoration-none">Equipo</a></li>
+					<li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+        </ul>
+      </div>
+
+    <!-- Columna 3: Redes Sociales Mejorada -->
+<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  <h6 class="text-uppercase fw-bold mb-4" style="color: #3a3a3a;">Síguenos</h6>
+  <div class="d-flex gap-3">
+    <a href="#" class="social-icon" aria-label="Facebook">
+      <i class="bi bi-facebook"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Instagram">
+      <i class="bi bi-instagram"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Correo">
+      <i class="bi bi-envelope"></i>
+    </a>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="text-center p-3 border-top border-light mt-4">
+    © 2025 Clínica Veterinaria Vida Animal. Todos los derechos reservados.
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

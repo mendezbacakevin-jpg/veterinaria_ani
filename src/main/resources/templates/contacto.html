@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contacto | Clínica Veterinaria Vida Animal</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+  
+  <!-- Bootstrap JS y Popper (defer para mejor performance) -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" defer></script>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" defer></script>
+  
+  <style>
+    /* Submenú dentro del dropdown */
+    .dropdown-submenu {
+      position: relative;
+    }
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 0;
+      display: none;
+    }
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+    .dropdown-menu > li > a {
+      white-space: nowrap;
+    }
+    
+    /* Estilo del footer - íconos sociales */
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #252421;
+      color: rgb(23, 19, 19);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .social-icon:hover {
+      background-color: #a68f3d;
+      transform: scale(1.15);
+      text-decoration: none;
+      color: white;
+    }
+    
+    /* Dropdown menú base */
+    .dropdown-menu {
+      background-color: #f5f5dc;
+      border-radius: 8px;
+      border: 1px solid #d3c9a3;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem 0;
+      min-width: 200px;
+    }
+    .dropdown-menu .dropdown-item {
+      color: #5a4a2f;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item:focus {
+      background-color: #d3c9a3;
+      color: #2c220d;
+    }
+    .dropdown-submenu .dropdown-menu {
+      background-color: #f5f5dc;
+      border-radius: 8px;
+      border: 1px solid #d3c9a3;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .dropdown-toggle::after {
+      border-top: 0.3em solid #5a4a2f;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
+      margin-left: 0.255em;
+    }
+    .dropdown-submenu:hover > .dropdown-menu {
+      display: block;
+    }
+
+    
+
+    /* Estilos para los cuadros (tarjetas) */
+    .info-card {
+      background: rgba(255 255 255 / 0.15);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255 255 255 / 0.3);
+      border-radius: 1rem;
+      padding: 2rem;
+      /* margin-bottom se gestiona por el gutter de Bootstrap */
+    }
+
+    /* Aseguramos que la sección tenga algo de fondo para que el blur se note */
+    section.container {
+      background-color: #f5f5dc;
+      border-radius: 1rem;
+      padding: 2rem 1rem;
+    }
+  </style>
+</head>
+<body style="background-color: #f5f5dc;">
+
+  <nav class="navbar navbar-expand-lg" style="background-color: #f5f5dc;">
+    <div class="container-fluid">
+      <!-- Logo e izquierda -->
+      <div class="d-flex align-items-center">
+		<a th:href="@{/ruta-colocar-aun}">
+		  <img th:src="@{/images/princi2..png}" alt="Logo" style="height: 50px;" class="me-3">
+		</a>
+		<a class="nav-link px-3" th:href="@{/principal}">Inicio</a>
+		<a class="nav-link px-3" th:href="@{/nosotros}">Nosotros</a>
+
+        <!-- Dropdown Productos -->
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Productos
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-submenu position-relative">
+              <a class="dropdown-item dropdown-toggle" href="#">Alimentos</a>
+              <ul class="dropdown-menu">
+				<a class="dropdown-item" th:href="@{/alimentoperro}">Perros</a>
+				     <li><a class="dropdown-item" th:href="@{/alimentogato}">Gatos</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu position-relative">
+              <a class="dropdown-item dropdown-toggle" href="#">Juguetes</a>
+              <ul class="dropdown-menu">
+				<li><a class="dropdown-item" th:href="@{/jugueteperro}">Perros</a></li>
+				  <li><a class="dropdown-item" th:href="@{/juguetegato}">Gatos</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu position-relative">
+              <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
+              <ul class="dropdown-menu">
+				<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+				<li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+      <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
+	  <!-- Botón que redirige a /listarRegistro usando Thymeleaf -->
+	  <a class="nav-link px-3" th:href="@{/listarRegistro}">Mis Citas</a>
+      </div>
+
+      <!-- Derecha -->
+      <div class="d-flex align-items-center">
+		  <a class="nav-link px-3" th:href="@{/cargar}">Registro Cita</a>
+		  <a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
+		  <a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
+
+        <!-- Íconos carrito y usuario -->
+        <a class="nav-link px-3" href="#"><i class="fas fa-shopping-cart"></i></a>
+        <a class="nav-link px-3" href="#"><i class="fas fa-user"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="container my-5 py-4 rounded">
+    <div class="row gy-5 g-5">
+      <!-- Horarios -->
+      <div class="col-md-4">
+        <div class="info-card">
+          <h2 class="mb-6 border-bottom border-warning pb-2">Horarios de Atención</h2>
+          <p><strong>Lunes:</strong> 24 Horas</p>
+          <p><strong>Martes a Viernes:</strong> 8:00 AM - 8:00 PM</p>
+          <p><strong>Sábados:</strong> 9:00 AM - 2:00 PM</p>
+          <p><strong>Domingos:</strong> 24 Horas</p>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div class="col-md-4">
+        <div class="info-card">
+          <h2 class="mb-4 border-bottom border-warning pb-2">Contacto</h2>
+          <p><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> info@mail.com</p>
+          <p><i class="bi bi-telephone-fill me-2"></i><strong>Teléfono:</strong> 0000-1184-5</p>
+          <p><i class="bi bi-phone-fill me-2"></i><strong>Móvil:</strong> 987-654-321</p>
+          
+        </div>
+      </div>
+
+      <!-- Dirección -->
+      <div class="col-md-4">
+        <div class="info-card">
+          <h2 class="mb-4 border-bottom border-warning pb-2">Dirección</h2>
+          <p><i class="bi bi-geo-alt-fill me-2"></i>AV. General 1955</p>
+          <p><i class="bi bi-geo-alt-fill me-2"></i>Jesús María, Lima - Perú</p>
+        </div>
+      </div>
+    </div>
+
+ 
+    <!-- Mapa -->
+    <div id="map" style="height: 350px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); margin-top: 30px;"></div>
+  </section>
+
+  
+ 
+<footer class="bg-dark text-white pt-5 pb-4">
+  <div class="container text-md-left">
+    <div class="row">
+
+      <!-- Columna 1: Logo e Info -->
+      <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+        <h5 class="text-uppercase fw-bold mb-4">Clínica Vida Animal</h5>
+      <p style="font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: #5a4a2f; margin-top: 1rem;">
+  Cuidamos a tus compañeros peludos con todo nuestro amor, experiencia y compromiso, porque para nosotros son parte de la familia.
+</p>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase fw-bold mb-4">Enlaces</h6>
+        <ul class="list-unstyled">
+			<li><a th:href="@{/principal}" class="text-white text-decoration-none">Inicio</a></li>
+				<li><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></li>
+				<li><a th:href="@{/equipo}" class="text-white text-decoration-none">Equipo</a></li>
+				<li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+        </ul>
+      </div>
+
+    <!-- Columna 3: Redes Sociales Mejorada -->
+<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  <h6 class="text-uppercase fw-bold mb-4" style="color: #3a3a3a;">Síguenos</h6>
+  <div class="d-flex gap-3">
+    <a href="#" class="social-icon" aria-label="Facebook">
+      <i class="bi bi-facebook"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Instagram">
+      <i class="bi bi-instagram"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Correo">
+      <i class="bi bi-envelope"></i>
+    </a>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="text-center p-3 border-top border-light mt-4">
+    © 2025 Clínica Veterinaria Vida Animal. Todos los derechos reservados.
+  </div>
+</footer>
+
+
+
+
+</body>
+ <script>
+    // Espera a que todo el DOM y scripts estén cargados
+    window.addEventListener('load', () => {
+      // Inicializar mapa Leaflet
+      const map = L.map('map').setView([-12.073, -77.043], 15);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      L.marker([-12.073, -77.043])
+        .addTo(map)
+        .bindPopup('<b>Clínica Veterinaria Vida Animal</b><br>Jesús María, Lima - Perú')
+        .openPopup();
+    });
+  </script>
+</html>

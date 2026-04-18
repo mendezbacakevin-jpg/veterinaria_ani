@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clínica Veterinaria Vida Animal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+  
+
+
+  <style>
+    /* Submenú dentro del dropdown */
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 0;
+      display: none;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Opcional: mejor visibilidad */
+    .dropdown-menu > li > a {
+      white-space: nowrap;
+    }
+
+
+
+    /*ESTILO DEL FOOTER*/
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c9b177; /* tono crema más oscuro */
+    color: rgb(23, 19, 19);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .social-icon:hover {
+    background-color: #a68f3d; /* un poco más oscuro para hover */
+    transform: scale(1.15);
+    text-decoration: none;
+    color: white;
+  }
+
+
+/* CODIGO PARA LA PARTE DEL SUBMENU*/
+
+
+/* Dropdown menú base */
+.dropdown-menu {
+  background-color: #f5f5dc; /* crema */
+  border-radius: 8px;
+  border: 1px solid #d3c9a3; /* borde suave */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 0.5rem 0;
+  min-width: 200px;
+}
+
+/* Items */
+.dropdown-menu .dropdown-item {
+  color: #5a4a2f; /* marrón oscuro */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover en items */
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus {
+  background-color: #d3c9a3; /* crema oscuro */
+  color: #2c220d;
+}
+
+/* Submenu */
+.dropdown-submenu .dropdown-menu {
+  background-color: #f5f5dc;
+  border-radius: 8px;
+  border: 1px solid #d3c9a3;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Icono toggle (flecha) */
+.dropdown-toggle::after {
+  border-top: 0.3em solid #5a4a2f;
+  border-right: 0.3em solid transparent;
+  border-left: 0.3em solid transparent;
+  margin-left: 0.255em;
+}
+
+/* Ajuste para el submenú cuando se muestra */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+
+
+
+  </style>
+</head>
+<body style="background-color: #f5f5dc;">
+
+<nav class="navbar navbar" style="background-color: #f5f5dc;">
+  <div class="container-fluid">
+    <!-- Logo e izquierda -->
+   <div class="d-flex align-items-center">
+	<a th:href="@{/ruta-colocar-aun}">
+	  <img th:src="@{/images/princi2..png}" alt="Logo" style="height: 50px;" class="me-3">
+	</a>
+	<a class="nav-link px-3" th:href="@{/principal}">Inicio</a>
+	<a class="nav-link px-3" th:href="@{/nosotros}">Nosotros</a>
+
+  <!-- Dropdown Productos -->
+  <div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown">
+      Productos
+    </a>
+    <ul class="dropdown-menu">
+
+      <!-- Submenú Alimentos -->
+      <li class="dropdown-submenu position-relative">
+        <a class="dropdown-item dropdown-toggle" href="#">Alimentos</a>
+        <ul class="dropdown-menu">
+      <a class="dropdown-item" th:href="@{/alimentoperro}">Perros</a>
+          <li><a class="dropdown-item" th:href="@{/alimentogato}">Gatos</a></li>
+        </ul>
+      </li>
+
+      <!-- Submenú Juguetes -->
+      <li class="dropdown-submenu position-relative">
+        <a class="dropdown-item dropdown-toggle" href="#">Juguetes</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" th:href="@{/jugueteperro}">Perros</a></li>
+		  <li><a class="dropdown-item" th:href="@{/juguetegato}">Gatos</a></li>
+        </ul>
+      </li>
+
+      <!-- Opción simple -->
+       <li class="dropdown-submenu position-relative">
+        <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
+        <ul class="dropdown-menu">
+			<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+          <li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    
+  </div>
+    <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
+	<!-- Botón que redirige a /listarRegistro usando Thymeleaf -->
+	<a class="nav-link px-3" th:href="@{/citas}">Mis Citas</a>
+</div>
+
+
+    <!-- Imagen al centro -->
+    <div class="d-none d-lg-block">
+   
+    </div>
+
+    <!-- Derecha -->
+    <div class="d-flex align-items-center">
+      <!-- Dropdown Productos con submenú -->
+	  <a class="nav-link px-3" th:href="@{/cargar}">Registro Cita</a>
+	  <a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
+	  <a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
+      
+      <!--CODIGO DEL CARRO Y DEL LOGIN -->
+    <a class="nav-link px-3"th:href="@{/carrocompras}">
+  <i class="fas fa-shopping-cart"></i> </a>
+
+  
+  
+  <!--ACA VA EL NOMBRE Y CUANDO ESTA SALGA CERRAR E VER PERFIL Y COLOCAR IMG -->
+  <!-- ✅ Toda la lógica dentro del mismo <li>, sin duplicar estructura -->
+  <li class="nav-item dropdown">
+
+      <a class="nav-link dropdown-toggle px-3 d-flex align-items-center"
+         href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+          <!-- 👤 Nombre del usuario o 'Invitado' -->
+          <span th:text="${session.usuarioLogueado != null ? session.usuarioLogueado.username : 'Invitado'}"></span>
+      </a>
+
+      <!-- ✅ Menú desplegable -->
+	  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+	      <!-- Usuario logueado -->
+	      <li th:if="${session.usuarioLogueado != null}">
+	          <a class="dropdown-item" th:href="@{/api/pago/perfil}">Ver perfil</a>
+	      </li>
+	      <li th:if="${session.usuarioLogueado != null}">
+	          <a class="dropdown-item" th:href="@{/api/pago/logout}">Cerrar sesión</a>
+	      </li>
+
+	      <!-- Usuario NO logueado -->
+	      <li th:if="${session.usuarioLogueado == null}">
+	          <a class="dropdown-item" th:href="@{/api/pago/login}">Iniciar sesión</a>
+	      </li>
+
+	  </ul>
+
+      
+  </li>
+
+      
+
+
+    </div>
+  </div>
+</nav>
+
+
+
+<section class="container mb-5" style="background-color: #f5f5dc; padding: 2rem ">
+  <div class="row align-items-center" style="min-height: 400px;">
+    <!-- Izquierda: mensaje -->
+    <div class="col-md-6 text-start">
+      <h2 class="fw-bold display-4 mb-3" style="color: #333;">Conoce a Thor</h2>
+      <p class="fs-4 text-muted">
+        Thor es un Doberman ejemplar, símbolo de salud y vitalidad. En Clínica Veterinaria Vida Animal, brindamos los mejores productos y cuidados especializados para que tu mascota tenga la mejor calidad de vida.
+      </p>
+	  <a th:href="@{/servicio}" class="btn btn-primary btn-lg mt-3">Descubre nuestros servicios</a>
+    </div>
+
+    <!-- Derecha: imagen -->
+    <div class="col-md-6 d-flex justify-content-center">
+		<img th:src="@{/images/pagin1-removebg-preview.png}"
+           alt="Perro Thor" 
+           style="height: 450px; object-fit: cover;">
+    </div>
+  </div>
+</section>
+
+<br><br>
+<section class="container mb-5" style="background-color: #f5f5dc; padding: 3rem 0;">
+  <h2 class="text-center mb-5 fw-bold display-5 text-dark">Nuestros Servicios</h2>
+
+  <div class="row g-4 justify-content-center">
+    <!-- Tarjeta 1 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="position-relative rounded overflow-hidden shadow-sm" style="height: 300px;">
+			<img th:src="@{/images/cuadro1-Photoroom.png}" class="w-100 h-100" alt="Medicina General" style="object-fit: cover; filter: brightness(70%);">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center px-3">
+			<h5 class="fw-bold fs-4">Medicina General</h5>
+			<a th:href="@{/medicinageneral}" class="btn btn-outline-light btn-sm mt-2 px-4 rounded-pill shadow">Leer más</a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta 2 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="position-relative rounded overflow-hidden shadow-sm" style="height: 300px;">
+     <img th:src="@{/images/cuadro2.png}" class="w-100 h-100" alt="Cirugías Especializadas" style="object-fit: cover; filter: brightness(70%);">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center px-3">
+			<h5 class="fw-bold fs-4">Cirugías Especializadas</h5>
+			<a th:href="@{/cirugiasespecializados}" class="btn btn-outline-light btn-sm mt-2 px-4 rounded-pill shadow">Leer más</a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta 3 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="position-relative rounded overflow-hidden shadow-sm" style="height: 300px;">
+ <img th:src="@{/images/cruadro5.png}" class="w-100 h-100" alt="Laboratorio" style="object-fit: cover; filter: brightness(70%);">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center px-3">
+			<h5 class="fw-bold fs-4">Laboratorio</h5>
+			<a th:href="@{/laboratorio}" class="btn btn-outline-light btn-sm mt-2 px-4 rounded-pill shadow">Leer más</a>
+        </div>
+      </div>
+    </div>
+
+       <!-- Tarjeta 4 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="position-relative rounded overflow-hidden shadow-sm" style="height: 300px;">
+       <img th:src="@{/images/cuadro4.png}" class="w-100 h-100" alt="Laboratorio" style="object-fit: cover; filter: brightness(70%);">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center px-3">
+          <h5 class="fw-bold fs-4">Peluquería Canina</h5>
+		  <a th:href="@{/peluqueria}" class="btn btn-outline-light btn-sm mt-2 px-4 rounded-pill shadow">Leer más</a>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+       <!-- Tarjeta 5 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="position-relative rounded overflow-hidden shadow-sm" style="height: 300px;">
+   <img th:src="@{/images/cuadro5.png}" class="w-100 h-100" alt="Laboratorio" style="object-fit: cover; filter: brightness(70%);">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center px-3">
+          <h5 class="fw-bold fs-4">Vacunación</h5>
+      	  <a th:href="@{/vacunacion}" class="btn btn-outline-light btn-sm mt-2 px-4 rounded-pill shadow">Leer más</a>
+
+        </div>
+      </div>
+    </div>
+
+
+
+       <!-- Tarjeta 6 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="position-relative rounded overflow-hidden shadow-sm" style="height: 300px;">
+		<img th:src="@{/images/cuadro6.png}" class="w-100 h-100" alt="Laboratorio" style="object-fit: cover; filter: brightness(70%);">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center px-3">
+          <h5 class="fw-bold fs-4">Guardería y hospedaje</h5>
+         <a th:href="@{/guarderia}" class="btn btn-outline-light btn-sm mt-2 px-4 rounded-pill shadow">Leer más</a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  </div>
+</section>
+
+<section class="container mb-5" style="background-color: #f5f5dc; padding: 4rem 1rem;">
+  <h2 class="text-center mb-5 fw-bold display-6" style="color: #333;">Lo que dicen nuestros clientes</h2>
+
+  <div class="row justify-content-center g-4">
+
+  <!-- Testimonio 1 -->
+<div class="col-lg-4 col-md-6">
+  <div class="card h-100 shadow-sm border-0" style="background-color: #ffffff; border-radius: 15px;">
+    <div class="card-body text-center p-4">
+    <img th:src="@{/images/cliente1.png}"
+           alt="Cliente 1" 
+           class="mb-3" 
+           width="100" 
+           style="border-radius: 350px; object-fit: cover; height: 100px;">
+      
+      <p class="card-text fst-italic mb-3">
+        "Excelente atención. Mi perrita fue tratada con mucho cariño. ¡Gracias!"
+      </p>
+      <h6 class="fw-bold mb-0">Ana Martínez</h6>
+      <small class="text-muted">Cliente frecuente</small>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Testimonio 2 -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card h-100 shadow-sm border-0" style="background-color: #ffffff; border-radius: 15px;">
+        <div class="card-body text-center p-4">
+        <img th:src="@{/images/cliente2.png}"
+           alt="Cliente 1" 
+           class="mb-3" 
+           width="100" 
+           style="border-radius: 350px; object-fit: cover; height: 100px;">
+          <p class="card-text fst-italic mb-3">
+            "Muy profesionales. Operaron a mi gato y todo salió perfecto."
+          </p>
+          <h6 class="fw-bold mb-0">Luis Pérez</h6>
+          <small class="text-muted">Dueño de gato siamés</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonio 3 -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card h-100 shadow-sm border-0" style="background-color: #ffffff; border-radius: 15px;">
+        <div class="card-body text-center p-4">
+       <img th:src="@{/images/cliente3.png}" 
+           alt="Cliente 1" 
+           class="mb-3" 
+           width="100" 
+           style="border-radius: 350px; object-fit: cover; height: 100px;">
+          <p class="card-text fst-italic mb-3">
+            "Ambiente limpio, personal amable y siempre atentos. ¡Mi perro los adora!"
+          </p>
+          <h6 class="fw-bold mb-0">Carla Gómez</h6>
+          <small class="text-muted">Cliente feliz</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  
+
+
+<footer class="bg-dark text-white pt-5 pb-4">
+  <div class="container text-md-left">
+    <div class="row">
+
+      <!-- Columna 1: Logo e Info -->
+      <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+        <h5 class="text-uppercase fw-bold mb-4">Clínica Vida Animal</h5>
+      <p style="font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: #5a4a2f; margin-top: 1rem;">
+  Cuidamos a tus compañeros peludos con todo nuestro amor, experiencia y compromiso, porque para nosotros son parte de la familia.
+</p>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase fw-bold mb-4">Enlaces</h6>
+        <ul class="list-unstyled">
+			<li><a th:href="@{/principal}" class="text-white text-decoration-none">Inicio</a></li>
+			<li><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></li>
+
+			<li><a th:href="@{/equipo}" class="text-white text-decoration-none">Equipo</a></li>
+			<li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+
+        </ul>
+      </div>
+
+    <!-- Columna 3: Redes Sociales Mejorada -->
+<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  <h6 class="text-uppercase fw-bold mb-4" style="color: #3a3a3a;">Síguenos</h6>
+  <div class="d-flex gap-3">
+    <a href="#" class="social-icon" aria-label="Facebook">
+      <i class="bi bi-facebook"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Instagram">
+      <i class="bi bi-instagram"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+    <a href="#" class="social-icon" aria-label="Correo">
+      <i class="bi bi-envelope"></i>
+    </a>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="text-center p-3 border-top border-light mt-4">
+    © 2025 Clínica Veterinaria Vida Animal. Todos los derechos reservados.
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!--Mostrar notifixaion en el carro de compras -->
+<script>
+  function actualizarNotificacionCarrito() {
+    const badge = document.getElementById('notificacion-carrito');
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+
+    if (cantidadTotal > 0) {
+      badge.style.display = 'inline-block';
+      badge.textContent = cantidadTotal;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = actualizarNotificacionCarrito;
+</script>
+
+
+</body>
+</html>
