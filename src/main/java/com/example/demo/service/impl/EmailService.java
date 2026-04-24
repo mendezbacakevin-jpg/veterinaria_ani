@@ -1,8 +1,9 @@
-package com.example.demo.classes.correo;
+package com.example.demo.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
+import com.example.demo.service.interfaces.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,7 +14,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
 @Service
-public class EmailService {
+public class EmailService implements IEmailService {
 
     @Autowired
     private JavaMailSender mailSender;

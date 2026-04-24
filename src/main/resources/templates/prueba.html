@@ -154,7 +154,7 @@
 	    <!-- Derecha -->
 	    <div class="d-flex align-items-center">
 	      <!-- Dropdown Productos con submenú -->
-		  <a class="nav-link px-3" th:href="@{/cargar}">Registro Cita</a>
+		  <a class="nav-link px-3" th:href="@{/api/cita/cargar}">Registro Cita</a>
 		  <a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
 		  <a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
 	      
@@ -188,7 +188,7 @@
 
 	
 
-	<form th:action="@{/grabar}" method="post" th:object="${cita}">
+	<form th:action="@{/api/cita/grabar}" method="post" th:object="${cita}">
 	
 	
 		<div th:if="${mensaje}" class="mt-3">
@@ -440,7 +440,7 @@
 						    selectServicio.addEventListener('change', () => {
 						        const idServicio = selectServicio.value;
 						        if (idServicio) {
-						            fetch(`/servicio/precio/${idServicio}`)
+						            fetch(`/api/cita/servicio/precio/${idServicio}`)
 						                .then(response => response.json())
 						                .then(precioServicio => {
 						                    const total = precioCita + parseFloat(precioServicio);

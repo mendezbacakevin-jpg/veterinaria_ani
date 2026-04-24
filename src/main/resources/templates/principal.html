@@ -152,7 +152,8 @@
        <li class="dropdown-submenu position-relative">
         <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
         <ul class="dropdown-menu">
-			<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+
+            <!-- Imagen al centro -->			<li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
           <li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
         </ul>
       </li>
@@ -162,11 +163,10 @@
   </div>
     <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
 	<!-- Botón que redirige a /listarRegistro usando Thymeleaf -->
-	<a class="nav-link px-3" th:href="@{/citas}">Mis Citas</a>
+	<a class="nav-link px-3" th:href="@{/api/cita/citas}">Mis Citas</a>
 </div>
+        
 
-
-    <!-- Imagen al centro -->
     <div class="d-none d-lg-block">
    
     </div>

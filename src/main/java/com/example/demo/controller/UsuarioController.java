@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.Map;
 
+import com.example.demo.service.interfaces.IEmailService;
+import com.example.demo.service.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.Repository.IUsuarioRepository;
-import com.example.demo.classes.Usuario;
-import com.example.demo.classes.UsuarioService;
-import com.example.demo.classes.correo.EmailService;
-
+import com.example.demo.entity.Usuario;
+import com.example.demo.service.impl.UsuarioService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 
@@ -24,18 +23,12 @@ import jakarta.servlet.http.HttpSession;
 public class UsuarioController {
 
     // 🔹 ATRIBUTOS (AQUÍ VAN)
-    private final UsuarioService usuarioService;
+    @Autowired
+    private IUsuarioService usuarioService;
 
     @Autowired
-    private IUsuarioRepository repoUsuario;
+    private IEmailService emailService;
 
-    @Autowired
-    private EmailService emailService;
-
-    // 🔹 CONSTRUCTOR (SOLO UNO)
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
 
     // 🔹 MOSTRAR LOGIN
     @GetMapping("/login")
@@ -60,7 +53,7 @@ public class UsuarioController {
         nuevo.setUsername(username);
         nuevo.setEmail(email);
         nuevo.setPassword(password);
-        repoUsuario.save(nuevo);
+        usuarioService.actualizar(nuevo);
 
         try {
             emailService.sendWelcomeEmail(email, username);
@@ -80,7 +73,7 @@ public class UsuarioController {
                                Model model,
                                HttpSession session) {
 
-        Usuario usuario = repoUsuario.findByEmail(email);
+        Usuario usuario = usuarioService.buscarPorEmaail(email);
 
         if (usuario != null && usuario.getPassword().equals(password)) {
             session.setAttribute("usuarioLogueado", usuario);
@@ -120,10 +113,13 @@ public class UsuarioController {
 
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
+
+
         if (usuario != null) {
-            usuario.setEmail(email);
-            usuario.setPassword(password);
-            usuarioService.actualizar(usuario);
+//            usuario.setEmail(email);
+//            usuario.setPassword(password);
+//            usuarioService.actualizar(usuario);
+            usuarioService.actualizarPerfil(usuario,email,password);
 
             redirectAttributes.addFlashAttribute("mensaje", "Perfil actualizado correctamente.");
         }

@@ -2,7 +2,7 @@ package com.example.demo.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.classes.Usuario;
+import com.example.demo.entity.Usuario;
 
 public interface IUsuarioRepository  extends JpaRepository<Usuario, Integer> {
 	
